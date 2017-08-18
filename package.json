@@ -20,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/rdelhommer/community-net/issues"
   },
-  "homepage": "https://github.com/rdelhommer/community-net#readme"
+  "homepage": "https://github.com/rdelhommer/community-net#readme",
+  "dependencies": {
+    "async": "^2.5.0",
+    "cron": "^1.2.1",
+    "nodemailer": "^4.0.1"
+  }
 }
