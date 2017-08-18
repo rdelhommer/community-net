@@ -1,0 +1,24 @@
+{
+  "name": "community-net",
+  "version": "1.0.0",
+  "description": "Networking functionality for communities based on the needs and skills of members within the community",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rdelhommer/community-net.git"
+  },
+  "keywords": [
+    "community",
+    "network",
+    "grassroot"
+  ],
+  "author": "Rick Delhommer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rdelhommer/community-net/issues"
+  },
+  "homepage": "https://github.com/rdelhommer/community-net#readme"
+}
