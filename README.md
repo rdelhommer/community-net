@@ -11,6 +11,24 @@ npm install community-net
 ```
 
 ## Usage
+### Emailer Config
+Each emailer takes a config object with the following interface
+```js
+{
+  transporter: Object, // nodemailer transporter object
+  from: String, // Email sender
+  subject: String, // Email subject
+  schedule: String, // Schedule to use with node-cron - Default every Sunday at midnight
+  timezone: String, // Timezone to use with node-cron - Default America/Los_Angeles
+  onErrorCallback: (err) => { ... }, // Optional
+  onSuccessCallback: () => { ... }, // Optional
+}
+```
+
+Please see [nodemailer documentation](https://nodemailer.com/smtp/) for information about email transporters and how to choose an appropriate one for your application.
+
+Please see [node-cron documentation](https://github.com/kelektiv/node-cron) for scheduling syntax and timezone as it is slightly different from regular cron.
+
 ### Help Wanted Emailer
 Matches each user with other users whose needs match the user's skill.  For example, if you have the following users:
 ```js
@@ -36,6 +54,22 @@ Matches each user with other users whose needs match the user's skill.  For exam
 * Bob will receive an email saying he can help Jack.
 * Jack will receive an email saying he can help Jill.
 * Jill will not receive an email because nobody currently needs robotics help.
+
+#### Construction
+```js
+var HelpWanted = require('community-net').HelpWantedEmailer;
+
+var emailerConfig = {
+  ...
+};
+
+// See Extension section for more information about connecting to your database
+var dbPlugin = {
+  ...
+};
+
+var emailer = new HelpWanted(emailerConfig, dbPlugin);
+```
 
 ### Sub Network Emailer
 Sends an email to each user detailing the status of their sub-network. Sub-networks can be defined in any way based upon how consumers implement the database plugin interface.  Sub-networks could be defined by zip code, city, state, neighborhood, interest, sport, etc.
@@ -67,6 +101,22 @@ For example, if you have the following users:
 * Bob will receive an email detailing the needs and skills of Jill
 * Jack will receive an email saying nobody is in his sub-network :(
 * Jill will receive an email detailing the needs and skills of Bob
+
+#### Construction
+```js
+var SubNetwork = require('community-net').SubNetworkEmailer;
+
+var emailerConfig = {
+  ...
+};
+
+// See Extension section for more information about connecting to your database
+var dbPlugin = {
+  ...
+};
+
+var emailer = new SubNetwork(emailerConfig, dbPlugin);
+```
 
 ## Extension
 Community Net can be extended to accomodate whatever database solution your app uses.
