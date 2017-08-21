@@ -81,10 +81,12 @@ To create a new plugin, create an object that implements the following interface
     // returns all users in the database
   }
 
+  // user param is a member of the array returned from the getUsers function on this interface
   function getSubNetworkForUser(user, onSuccessCallback, onErrorCallback) {
     // returns all users in a particular user's sub network
   }
 
+  // user param is a member of the array returned from the getUsers function on this interface
   function getUsersToHelp(user, onSuccessCallback, onErrorCallback) {
     // returns all users that a particular user can help
   }
