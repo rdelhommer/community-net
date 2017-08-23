@@ -18,8 +18,6 @@ Each emailer takes a config object with the following interface
   transporter: Object, // nodemailer transporter object
   from: String, // Email sender
   subject: String, // Email subject
-  schedule: String, // Schedule to use with node-cron - Default every Sunday at midnight
-  timezone: String, // Timezone to use with node-cron - Default America/Los_Angeles
   onErrorCallback: (err) => { ... }, // Optional
   onSuccessCallback: () => { ... }, // Optional
 }
@@ -27,7 +25,22 @@ Each emailer takes a config object with the following interface
 
 Please see [nodemailer documentation](https://nodemailer.com/smtp/) for information about email transporters and how to choose an appropriate one for your application.
 
-Please see [node-cron documentation](https://github.com/kelektiv/node-cron) for scheduling syntax and timezone as it is slightly different from regular cron.
+### Cron
+The emailer function can be invoked once or on a cron schedule.
+
+In the following sections, emailer is an instance of HelpWantedEmailer or SubNetworkEmailer.  
+#### Single Invocation
+```js
+emailer.sendSubNetEmail();
+```
+
+#### Scheduled Invocation
+The function startCron has two parameters - schedule and timezone.  The default values of each is shown below.
+```js
+var cronJob = emailer.startCron('0 0 0 * * 0', 'America/Los_Angeles')
+```
+
+Please see [node-cron documentation](https://github.com/kelektiv/node-cron) for more information.
 
 ### Help Wanted Emailer
 Matches each user with other users whose needs match the user's skill.  For example, if you have the following users:
@@ -58,6 +71,7 @@ Matches each user with other users whose needs match the user's skill.  For exam
 #### Construction
 ```js
 var HelpWanted = require('community-net').HelpWantedEmailer;
+var cron = require('cron');
 
 var emailerConfig = {
   ...
@@ -68,7 +82,11 @@ var dbPlugin = {
   ...
 };
 
-var emailer = new HelpWanted(emailerConfig, dbPlugin);
+var emailer = new HelpWanted(cron, emailerConfig, dbPlugin);
+var schedule = '0 0 0 * * 0';
+var timezone = 'America/Los_Angeles';
+
+emailer.startCron(schedule, timezone);
 ```
 
 ### Sub Network Emailer
@@ -105,6 +123,7 @@ For example, if you have the following users:
 #### Construction
 ```js
 var SubNetwork = require('community-net').SubNetworkEmailer;
+var cron = require('cron');
 
 var emailerConfig = {
   ...
@@ -115,7 +134,11 @@ var dbPlugin = {
   ...
 };
 
-var emailer = new SubNetwork(emailerConfig, dbPlugin);
+var emailer = new SubNetwork(cron, emailerConfig, dbPlugin);
+var schedule = '0 0 0 * * 0';
+var timezone = 'America/Los_Angeles';
+
+emailer.startCron(schedule, timezone);
 ```
 
 ## Extension
