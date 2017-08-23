@@ -4,7 +4,7 @@
   "description": "Networking functionality for communities based on the needs and skills of members within the community",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ava"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,8 @@
     "async": "^2.5.0",
     "cron": "^1.2.1",
     "nodemailer": "^4.0.1"
+  },
+  "devDependencies": {
+    "ava": "^0.22.0"
   }
 }
