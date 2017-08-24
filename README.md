@@ -28,10 +28,13 @@ Please see [nodemailer documentation](https://nodemailer.com/smtp/) for informat
 ### Cron
 The emailer function can be invoked once or on a cron schedule.
 
-In the following sections, emailer is an instance of HelpWantedEmailer or SubNetworkEmailer.  
 #### Single Invocation
 ```js
-emailer.sendSubNetEmail();
+helpWantedEmailer.sendHelpWantedEmail();
+```
+or
+```js
+subNetworkEmailer.sendSubNetEmail();
 ```
 
 #### Scheduled Invocation
