@@ -163,14 +163,10 @@ To create a new plugin, create an object that implements the following interface
   function getUsersToHelp(user, onSuccessCallback, onErrorCallback) {
     // returns all users that a particular user can help
   }
-
-  function convertDoc(userDoc) {
-    // Converts are returns the user database document into the user object used by Community Net
-  }
 }
 ```
 
-All database user documents should be converted to the Community Net user obejct before being consumed by the modeul. The user object used by Community Net is defined below
+All database user documents should be converted to the Community Net user obejct before being consumed by the module. The user object used by Community Net is defined below
 ```js
 {
   name: String,
