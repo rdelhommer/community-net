@@ -75,9 +75,11 @@ test.beforeEach(t => {
         return onErrorCallback(new Error('getSubNetworkForUser'));
       }
 
-      return onSuccessCallback({
-        name: 'Ronald McDonald'
-      });
+      return onSuccessCallback([{
+        name: 'Ronald McDonald',
+        needs: [ 'burgers', 'fries', 'slave labor' ],
+        skills: [ 'scaring children', 'causing obesity' ]
+      }]);
     }
   };
 
@@ -151,4 +153,25 @@ test('success callback invoked', t => {
   t.context.data.emailer.sendSubNetEmail();
 
   t.true(t.context.data.results.onSuccessInvoked);
+});
+
+test('email body correctly generated', t => {
+  var expectedBody =
+    '<h1>Your Network</h1>' +
+    '<p>The following is a list of nearby people in your network along with their needs and skills.</p>' +
+    '<h2>Ronald McDonald</h2>' +
+    '<h3>Skills</h3>' +
+    '<ul>' +
+      '<li>scaring children</li>' +
+      '<li>causing obesity</li>' +
+    '</ul>' +
+    '<h3>Needs</h3>' +
+    '<ul>' +
+      '<li>burgers</li>' +
+      '<li>fries</li>' +
+      '<li>slave labor</li>' +
+    '</ul>';
+
+  t.context.data.emailer.sendSubNetEmail();
+  t.is(t.context.data.results.sendMailHtml[0], expectedBody);
 });
