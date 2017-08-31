@@ -178,6 +178,3 @@ All database user documents should be converted to the Community Net user obejct
   skills: [String, ..., String]
 }
 ```
-
-## TODO
-* Email templates

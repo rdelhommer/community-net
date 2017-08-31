@@ -1,6 +1,6 @@
 {
   "name": "community-net",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Networking functionality for communities based on the needs and skills of members within the community",
   "main": "index.js",
   "scripts": {
