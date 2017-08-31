@@ -61,13 +61,21 @@ test.beforeEach(t => {
       }
 
       return onSuccessCallback([{
-        email: 'abel@abel.com'
+        email: 'abel@abel.com',
+        name: 'abel',
+        needs: [ 'foo', 'bar' ]
       }, {
-        email: 'bob@bob.com'
+        email: 'bob@bob.com',
+        name: 'bob',
+        needs: [ 'bar', 'beep' ]
       }, {
-        email: 'carl@carl.com'
+        email: 'carl@carl.com',
+        name: 'carl',
+        needs: [ 'beep', 'boop' ]
       }, {
-        email: 'don@don.com'
+        email: 'don@don.com',
+        name: 'don',
+        needs: [ 'boop', 'foo' ]
       }]);
     },
     getUsersToHelp: function (user, query, onSuccessCallback, onErrorCallback) {
@@ -75,9 +83,10 @@ test.beforeEach(t => {
         return onErrorCallback(new Error('getUsersToHelp'));
       }
 
-      return onSuccessCallback({
-        name: 'Ronald McDonald'
-      });
+      return onSuccessCallback([{
+        name: 'Ronald McDonald',
+        needs: [ 'burgers', 'fries', 'slave labor' ]
+      }]);
     }
   };
 
@@ -151,4 +160,19 @@ test('success callback invoked', t => {
   t.context.data.emailer.sendHelpWantedEmail();
 
   t.true(t.context.data.results.onSuccessInvoked);
+});
+
+test('email body correctly generated', t => {
+  var expectedBody =
+    '<h1>Help Wanted</h1>' +
+    '<p>The following people in your network have needs that match your skills.</p>' +
+    '<h2>Ronald McDonald</h2>' +
+    '<ul>' +
+      '<li>burgers</li>' +
+      '<li>fries</li>' +
+      '<li>slave labor</li>' +
+    '</ul>';
+
+  t.context.data.emailer.sendHelpWantedEmail();
+  t.is(t.context.data.results.sendMailHtml[0], expectedBody);
 });
